@@ -26,3 +26,5 @@ Leaflet license is retained in `dist/LEAFLET-LICENSE.txt`. Photograph attributio
 Pattaya: Oct 4 PAYAA, beach walk and dinner; Oct 5 Sanctuary of Truth optional before an afternoon bus to Bangkok. No islands or cabaret. ICONSIAM remains an Oct 3 alternative. Google is the only map provider; no provider switch. Embedded maps and direct links still depend on Google network access. No approximate coordinate is used as a verified entrance.
 
 The main page focuses on places, meals, hotels and necessary transport. Budget summaries and packing/entry panels are omitted from the UI at user request. Optional day filter plus All itinerary; no category switching.
+
+Layout: compact document-style daily tables (time / activity), linked place names, short secondary notes and plain hotel lines, following the user-provided reference.

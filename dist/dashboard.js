@@ -29,18 +29,17 @@ function renderFullPlan(){
   if(key==='prep')continue;
   const day=document.createElement('section');day.className='journey-day';day.id='day-'+key;
   const heading=document.createElement('h2');heading.textContent=(key==='prep'?'出发前':key.slice(5).replace('-','/'))+' · '+dayNotes[key][0];day.append(heading);
-  const events=document.createElement('div');events.className='journey-events';
+  const table=document.createElement('table');table.className='itinerary-table';
+  const thead=document.createElement('thead');const labels=document.createElement('tr');
+  for(const label of ['时间','安排']){const th=document.createElement('th');th.scope='col';th.textContent=label;labels.append(th);}thead.append(labels);table.append(thead);
+  const body=document.createElement('tbody');
   a.events.forEach(x=>{
-   const row=document.createElement('article');row.className='timeline-node';
-   const head=document.createElement('div');head.className='timeline-heading';
-   const time=document.createElement('time');time.textContent=x[1];if(x[0])time.dateTime=x[0];
-   const title=document.createElement('strong');title.textContent=x[2];head.append(time,title);
-   const detail=document.createElement('p');detail.textContent=x[3];row.append(head,detail);
-   const link=document.createElement('a');link.href=x[4]==='#plan'?'#local':x[4]==='#pack'?'#transport':x[4];link.textContent=x[4].startsWith('http')?'打开地图 / 官网 ↗':'相关详情 ↓';
-   if(x[4].startsWith('http')){link.target='_blank';link.rel='noreferrer';}
-   if(x[4]==='#routes')link.addEventListener('click',()=>renderRoute(a.route));
-   if(x[4].startsWith('http')||['#iconsiam','#pattaya','#food'].includes(x[4]))row.append(link);events.append(row);
-  });day.append(events);
+   const row=document.createElement('tr');const timeCell=document.createElement('td');const time=document.createElement('time');time.textContent=x[1];if(x[0])time.dateTime=x[0];timeCell.append(time);
+   const content=document.createElement('td');const title=document.createElement('strong');
+   const hasLink=x[4].startsWith('http')||['#iconsiam','#pattaya','#food'].includes(x[4]);
+   if(hasLink){const link=document.createElement('a');link.href=x[4];link.textContent=x[2];if(x[4].startsWith('http')){link.target='_blank';link.rel='noreferrer';}title.append(link);}else title.textContent=x[2];
+   const note=document.createElement('div');note.className='event-note';note.textContent=x[3];content.append(title,note);row.append(timeCell,content);body.append(row);
+  });table.append(body);day.append(table);
   if(key!=='prep'&&key!=='2026-10-07'){
    const id=key==='2026-10-04'?'photel':['2026-10-05','2026-10-06'].includes(key)?'mhotel':'hotel';
    const hotel=document.createElement('a');hotel.className='daily-hotel';hotel.href=placeLink(id);hotel.target='_blank';hotel.rel='noreferrer';hotel.textContent=(key==='2026-10-06'?'退房 / 取行李：':'今晚住：')+points[id][0]+' · Google地图 ↗';day.append(hotel);
