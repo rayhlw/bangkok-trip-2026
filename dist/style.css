@@ -56,3 +56,8 @@ main,header{max-width:900px}.dashboard{padding-top:20px}.dashboard h1{font-size:
 .reference-drawer{margin:20px 0;background:white;border:1px solid var(--line);border-radius:12px;padding:18px}.reference-drawer>summary{font-size:17px}.reference-content{padding-top:16px}.reference-content .view-heading,.reference-content .section-links{display:none}#jump-today{font-size:14px;font-weight:650}.reference-drawer[open]{overflow-wrap:anywhere}
 @media(max-width:720px){.dashboard h1{font-size:25px}.journey-day>h2{font-size:21px}.timeline-node{padding:14px}.reference-drawer{padding:14px}.reference-drawer>summary{font-size:15px}}
 @media print{.reference-drawer{display:block}.journey-day{break-before:auto}}
+.day-filter{display:flex;gap:7px;overflow-x:auto;padding:10px 0 12px;position:sticky;top:0;z-index:5;background:#f5f7f8f5;backdrop-filter:blur(8px)}
+.day-filter button{flex:1;white-space:nowrap;border-radius:20px;background:white;font-size:14px;padding:8px 14px;min-width:64px}.day-filter button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:white;font-weight:700}
+.journey-day{scroll-margin-top:65px}
+@media(max-width:720px){.day-filter{gap:5px}.day-filter button{min-width:51px;padding:8px 10px;font-size:13px}}
+@media print{.day-filter{display:none}.journey-day[hidden]{display:block!important}}

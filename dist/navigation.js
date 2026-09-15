@@ -8,6 +8,7 @@ main.insertBefore(references,main.querySelector('footer'));
 function showSection(rawId){
  const id=rawId==='plan'?'today':rawId||'today';
  const target=document.getElementById(id)||document.getElementById('today');
+ if(target.classList.contains('journey-day'))selectDay(id.slice(4));
  for(let parent=target.parentElement;parent;parent=parent.parentElement){if(parent.tagName==='DETAILS')parent.open=true;}
  const fold=target.querySelector(':scope > details.guide-fold');if(fold)fold.open=true;
  requestAnimationFrame(()=>target.scrollIntoView({block:'start'}));

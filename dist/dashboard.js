@@ -3,7 +3,12 @@ const packGroups=[['证件 / 入境',[['passport','两人护照原件','建议�
 function dateInZone(now,zone){return new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit'}).format(now);}
 function autoDay(){const now=new Date();const z=now>=new Date('2026-10-02T14:55:00+07:00')&&now<new Date('2026-10-07T05:55:00+08:00')?'Asia/Bangkok':'Asia/Shanghai';const date=dateInZone(now,z);return agenda[date]?date:(date<'2026-10-02'?'prep':'2026-10-07');}
 function duration(ms){const minutes=Math.max(0,Math.ceil(ms/60000));return (minutes>=1440?Math.floor(minutes/1440)+' 天 ':'')+Math.floor(minutes%1440/60)+' 小时 '+minutes%60+' 分钟';}
-function selectDay(key){if(!Object.hasOwn(agenda,key))throw Error('无效日期');document.getElementById('day-'+key)?.scrollIntoView({behavior:'smooth',block:'start'});return {date:key,events:agenda[key].events.length};}
+function selectDay(key){
+ if(key!=='all'&&(!Object.hasOwn(agenda,key)||key==='prep'))throw Error('无效日期');
+ document.querySelectorAll('.journey-day').forEach(day=>day.hidden=key!=='all'&&day.id!=='day-'+key);
+ document.querySelectorAll('[data-day-filter]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.dayFilter===key)));
+ return {date:key};
+}
 const dayNotes={prep:['出发前，先把关键事项准备好','酒店已订 · 还需确认大巴和入境材料'], '2026-10-02':['出发，入住曼谷','深圳湾 → 香港机场 → BKK → A-ONE'], '2026-10-03':['曼谷半日，下午留空','卧佛寺 → 泰餐 → 回酒店休息'], '2026-10-04':['去芭提雅，住一晚','退房 → 大巴 → PAYAA → 海边晚餐'], '2026-10-05':['白天回曼谷','真理寺可选 → 退房 → 大巴 → Metropole'], '2026-10-06':['退房休息，晚上去机场','白天留空 · 21:00–21:30 出发参考 · 23:00 前到 BKK'], '2026-10-07':['凌晨起飞，回深圳','02:00 BKK 起飞 → 05:55 香港落地 → 南山']};
 function renderDashboard(){
  const now=new Date(),key=autoDay(),a=agenda[key];
@@ -48,3 +53,5 @@ function renderFullPlan(){
  }
 }
 renderFullPlan();renderDashboard();setInterval(renderDashboard,60000);
+
+document.querySelectorAll("[data-day-filter]").forEach(button=>button.addEventListener("click",()=>selectDay(button.dataset.dayFilter)));
