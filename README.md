@@ -1,30 +1,30 @@
-# 国庆曼谷行程
+# 曼谷 / 芭提雅国庆行程
 
-Static travel planner for 2026-10-02 to 2026-10-07.
+2026年10月2日至7日，GitHub Pages 静态旅游攻略。
 
-- `dist/index.html`: source-backed recommendations, budget and reference links.
-- `dist/dashboard.js`: timezone-aware trip status and all six dates in a continuous timeline.
-- `dist/routes.js`: day-by-day transport estimates and Google map previews.
-- `dist/maps.js`: Google Maps previews and direct-open fallback links.
-- `dist/navigation.js`: one continuous itinerary, with optional reference material below.
-- `dist/style.css`: responsive UI.
+在线地址：https://rayhlw.github.io/bangkok-trip-2026/
 
-Authoritative trip times come from user-provided flight screenshots. No passenger names, ticket numbers or booking-session URLs are retained. Four hotel nights are booked; events and vehicles remain unbooked. Prices are dated reference snapshots or explicitly labeled estimates. Google map results are searched by full names and addresses; entrances and branch matches still need checking. Embedded routes show one leg at a time to preserve mixed transport modes. Checklist state is browser-local only. No background notifications.
+## 修改内容
 
-Preview: `python3 -m http.server 4173 --directory dist`.
+- `dist/trip-data.js`：每天的主行程、可替换去处、已订酒店、地点地址与分段交通。所有行程内容由这里统一读取。
+- `dist/app.js`：日期筛选、表格渲染、统一地点详情窗口、地图和地址复制。
+- `dist/style.css`：唯一一套页面样式，桌面与手机共用结构。
+- `dist/index.html`：页面骨架和简短出行提示。
 
-Primary website: https://rayhlw.github.io/bangkok-trip-2026/
+已确认的酒店：10/2–4 A-ONE Bangkok；10/4–5 PAYAA Pattaya；10/5–6 Metropole Bangkok。6日晚去BKK，7日02:00起飞。
 
-GitHub repository: https://github.com/rayhlw/bangkok-trip-2026
+## 本地检查和发布
 
-Edit `dist/`, commit on `main`, and run `sh publish.sh`. The script pushes source to `main` and a `git subtree split` of only `dist/` to `gh-pages`. GitHub Pages automatically builds and publishes that branch. This uses GitHub's built-in branch publishing and does not require OAuth workflow scope. Check the Pages build and live page after each update. Local CSS and JavaScript use relative paths so the site works under `/bangkok-trip-2026/`.
+```sh
+python3 -m http.server 4173 --directory dist
+node tests/trip.test.cjs
+node --check dist/app.js
+node --check dist/trip-data.js
+git diff --check
+```
 
-The old Sites identity in `.openai/hosting.json` is retained for reference; GitHub Pages is the user's chosen publishing destination for future updates. Do not redeploy to Sites or start AWS resources unless requested.
+提交所有修改到 main 后运行 `sh publish.sh`。脚本推送 main，再把 dist 的子树发布到 gh-pages。确认 GitHub Pages 构建成功后读回在线文件。
 
-Leaflet license is retained in `dist/LEAFLET-LICENSE.txt`. Photograph attribution appears on the page. External Google Maps may have different network availability from the main website. Checklist selections are stored per browser and will not migrate automatically from the previous domain.
+不使用 GitHub Actions，不需要 AWS，也不需要每次重新申请域名。地图使用 Google，是否能加载取决于访问者网络。
 
-Pattaya: Oct 4 PAYAA, beach walk and dinner; Oct 5 Sanctuary of Truth optional before an afternoon bus to Bangkok. No islands or cabaret. ICONSIAM remains an Oct 3 alternative. Google is the only map provider; no provider switch. Embedded maps and direct links still depend on Google network access. No approximate coordinate is used as a verified entrance.
-
-The main page focuses on places, meals, hotels and necessary transport. Budget summaries and packing/entry panels are omitted from the UI at user request. Optional day filter plus All itinerary; no category switching.
-
-Layout: compact document-style daily tables (time / activity), linked place names, short secondary notes and plain hotel lines, following the user-provided reference.
+设计与验证记录见 `docs/refactor-2026-09-15.md`。
