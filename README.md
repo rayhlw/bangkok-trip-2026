@@ -3,10 +3,10 @@
 Static travel planner for 2026-10-02 to 2026-10-07.
 
 - `dist/index.html`: source-backed recommendations, budget and reference links.
-- `dist/dashboard.js`: timezone-aware itinerary dashboard and device-local packing checklist.
+- `dist/dashboard.js`: timezone-aware trip status and all six dates in a continuous timeline.
 - `dist/routes.js`: day-by-day transport estimates and Google map previews.
 - `dist/maps.js`: Google Maps previews and direct-open fallback links.
-- `dist/navigation.js`: five task views with a visible date rail and expanded vertical itinerary.
+- `dist/navigation.js`: one continuous itinerary, with optional reference material below.
 - `dist/style.css`: responsive UI.
 
 Authoritative trip times come from user-provided flight screenshots. No passenger names, ticket numbers or booking-session URLs are retained. Four hotel nights are booked; events and vehicles remain unbooked. Prices are dated reference snapshots or explicitly labeled estimates. Google map results are searched by full names and addresses; entrances and branch matches still need checking. Embedded routes show one leg at a time to preserve mixed transport modes. Checklist state is browser-local only. No background notifications.
@@ -24,3 +24,5 @@ The old Sites identity in `.openai/hosting.json` is retained for reference; GitH
 Leaflet license is retained in `dist/LEAFLET-LICENSE.txt`. Photograph attribution appears on the page. External Google Maps may have different network availability from the main website. Checklist selections are stored per browser and will not migrate automatically from the previous domain.
 
 Pattaya: Oct 4 PAYAA, beach walk and dinner; Oct 5 Sanctuary of Truth optional before an afternoon bus to Bangkok. No islands or cabaret. ICONSIAM remains an Oct 3 alternative. Google is the only map provider; no provider switch. Embedded maps and direct links still depend on Google network access. No approximate coordinate is used as a verified entrance.
+
+The main page focuses on places, meals, hotels and necessary transport. Budget summaries and packing/entry panels are omitted from the UI at user request. No date or category switching.
