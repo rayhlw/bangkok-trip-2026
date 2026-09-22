@@ -14,7 +14,7 @@ function renderRows(rows) {
     <td><div class="row-title">${row.place ? placeButton(row.place, row.title, row.leg) : escapeHTML(row.title)}${row.optional ? '<span class="optional">可选</span>' : ''}</div>
     <p>${escapeHTML(row.note)}</p>
     ${row.leg ? `<p class="transit">${escapeHTML(legs[row.leg].text)}</p>` : ''}
-    ${row.extra ? `<p class="extra-place">另一个店：${placeButton(row.extra)}</p>` : ''}</td>
+    ${row.extra ? `<p class="extra-place">相关地点：${placeButton(row.extra)}</p>` : ''}</td>
   </tr>`).join('');
 }
 function render() {
@@ -24,7 +24,7 @@ function render() {
     <p class="day-note">${escapeHTML(d.note)}</p>
     ${d.hotel ? `<p class="stay"><span>住宿</span>${placeButton(d.hotel)}<small>${escapeHTML(d.stay)}</small></p>` : ''}
     <table class="itinerary"><caption class="sr-only">${d.date} 行程安排</caption><thead><tr><th scope="col">时间</th><th scope="col">安排</th></tr></thead><tbody>${renderRows(d.rows)}</tbody></table>
-    ${d.options.length ? `<details class="alternatives"><summary>当天备选 <span>${d.options.length} 个去处，替换主线即可</span></summary><table class="itinerary"><caption class="sr-only">${d.date} 备选去处</caption><tbody>${renderRows(d.options)}</tbody></table></details>` : ''}
+    ${d.options.length ? `<details class="alternatives"><summary>当天备选与餐厅 <span>按兴趣替换，不必全去</span></summary><table class="itinerary"><caption class="sr-only">${d.date} 备选去处与餐厅</caption><tbody>${renderRows(d.options)}</tbody></table></details>` : ''}
   </section>`).join('');
 }
 function selectDay(date, updateURL = true) {

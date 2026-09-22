@@ -28,3 +28,5 @@ git diff --check
 不使用 GitHub Actions，不需要 AWS，也不需要每次重新申请域名。地图使用 Google，是否能加载取决于访问者网络。
 
 设计与验证记录见 `docs/refactor-2026-09-15.md`。
+
+2026-09-22参考DOCX的内容去向、时间取舍、未核实餐厅及官方来源见 `docs/itinerary-feasibility-2026-09-22.md`。更新内容时保留现有页面样式；备选是替换主线，不是全部叠加。

@@ -14,6 +14,26 @@ assert.equal(days[4].rows.at(-1).place,'bkk');
 assert.equal(days[5].rows[0].time,'02:00');
 assert.match(days[5].rows[0].title,/HX760/);
 assert.ok(!days.flatMap(d=>d.rows).some(r=>/包车|上岛|人妖|打枪/.test(r.title)));
+// The reference's added venues remain reachable; fixed bookings and prior cancellations win.
+const reachable = new Set(days.flatMap(d=>[
+  d.hotel, ...[...d.rows,...d.options].flatMap(r=>[r.place,r.extra])
+]).filter(Boolean));
+for (const id of ['bangluang','paknam','textile','arun','river','bigbuddha','viewpoint','neon',
+ 'nueng','jaewan','pungdet','somsom','aey','chula','sampeng','mangkon','yaowarat','gaysorn',
+ 'paor','goang','herehai','wattana','maevaree','kpanich','kolun','kruadusit','thipsamai',
+ 'thipsamaiicon','somsak','naimong','naiek','patonggo','jekpui','phedmark','polo','somtumder',
+ 'victorynoodles','savoey','chatramue','jayfai','nusara','potong','rhaan','ledu']) {
+ assert.ok(reachable.has(id),`Reference venue has no visible entry: ${id}`);
+}
+assert.ok(days[1].rows.some(r=>r.place==='paknam' && r.optional));
+assert.ok(days[1].options.some(r=>r.place==='arun' && r.extra==='river'));
+assert.ok(days[4].options.some(r=>r.place==='yaowarat'));
+assert.ok(!days[4].rows.some(r=>['potong','rhaan','ledu','nusara','jayfai'].includes(r.place)),
+ 'No long tasting dinner or closed Jay Fai on the flight day');
+assert.ok(!days.flatMap(d=>[...d.rows,...d.options]).some(r=>/格兰岛|Koh Larn|租泰服|人妖/.test(r.title)));
+assert.match(places.jeho.detail,/17:30/);
+assert.match(places.herehai.detail,/周一休/);
+assert.match(places.kpanich.detail,/芒果糯米饭/);
 for (const day of days) for (const row of [...day.rows,...day.options]) {
   if(row.place) assert.ok(places[row.place],`Missing place ${row.place}`);
   if(row.extra) assert.ok(places[row.extra],`Missing extra ${row.extra}`);
@@ -30,4 +50,4 @@ for (const place of Object.values(places)) {
 const html = fs.readFileSync('dist/index.html','utf8');
 for(const [,file] of html.matchAll(/(?:src|href)="([^"?:]+\.(?:js|css))/g)) assert.ok(fs.existsSync('dist/'+file),file);
 assert.ok(!/routes\.js|dashboard\.js|leaflet|navigation\.js/.test(html));
-console.log('Trip invariants passed: dates, hotels, return flight, all place/route references, and assets.');
+console.log('Trip invariants passed: dates, hotels, return flight, reference coverage, alternatives, all place/route references, and assets.');
