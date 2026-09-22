@@ -331,7 +331,7 @@ window.TRIP = {
       "name": "朱拉隆功大学 · 百年纪念公园",
       "address": "Chulalongkorn University Centenary Park, Chula Soi 5, Wang Mai, Pathum Wan, Bangkok",
       "detail": "若5日比预期早到，可缩短Siam逛街，晚饭前在公园周边散步约30–45分钟，再去班塔通。校园并非统一售票景点，建筑和非开放区域遵守校方管理，不保证可进教学楼。不要把班塔通误当只在周末举办的校园夜市。",
-      "source": "https://www.chula.ac.th/en/cu-services/creative-space/centenary-park/"
+      "source": "https://www.chula.ac.th/en/services/cu-centenary-park/"
     },
     "potong": {
       "name": "POTONG · 泰中融合品鉴晚餐",
